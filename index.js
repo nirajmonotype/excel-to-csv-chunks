@@ -1,8 +1,10 @@
+const fs = require("fs");
+const path = require("path");
 const inputPath = "./users.xlsx";
 const outputFolder = "./output";
 const xlsParser = new (require("simple-excel-to-json").XlsParser)();
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
-const chunkSize = 1000;
+const chunkSize = 5;
 const csvHeader = [
   { id: "ContactId", title: "ContactId" },
   { id: "Email", title: "Email" },
@@ -22,6 +24,21 @@ async function writeToCSV(header = [], data = [], path) {
   });
 
   await csvWriter.writeRecords(data);
+}
+
+function deleteAllFiles(directoryPath) {
+  if (fs.existsSync(directoryPath)) {
+    fs.readdirSync(directoryPath).forEach((file) => {
+      const curPath = path.join(directoryPath, file);
+      if (fs.lstatSync(curPath).isDirectory()) {
+        // recurse
+        deleteFolderRecursive(curPath);
+      } else {
+        // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+  }
 }
 
 function startProcess() {
@@ -57,6 +74,15 @@ function startProcess() {
   }
 }
 
+function clearFiles() {
+  if (fs.existsSync(outputFolder)) {
+    deleteAllFiles(outputFolder);
+  }
+}
+
 (async function () {
+  console.log("******** EXCEL TO CSV JOB is started **************");
+  clearFiles();
   startProcess();
+  console.log("******** EXCEL TO CSV JOB is completed *************");
 })();

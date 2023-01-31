@@ -1,0 +1,25 @@
+{
+  "name": "exceltocsv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "csv-writer": "^1.6.0",
+    "simple-excel-to-json": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nirajmonotype/excel-to-csv-chunks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nirajmonotype/excel-to-csv-chunks/issues"
+  },
+  "homepage": "https://github.com/nirajmonotype/excel-to-csv-chunks#readme"
+}
